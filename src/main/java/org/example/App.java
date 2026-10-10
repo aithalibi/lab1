@@ -1,6 +1,7 @@
-package com.example;
+package org.example;
 
 import com.example.model.Produit;
+import org.h2.tools.Server;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,6 +11,14 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) {
+        try {
+            Server.createWebServer("-web", "-webPort", "8082").start();
+            System.out.println("Console H2 disponible sur : http://localhost:8082");
+        } catch (Exception e) {
+            System.out.println("Erreur lors du démarrage de la console H2");
+            e.printStackTrace();
+        }
+
         // Création de l'EntityManagerFactory
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate-demo");
 
